@@ -41,7 +41,7 @@ public class ApplicationStartup {
     @Autowired
     private OnlineUsersService onlineUsersService;
 //    @Autowired
-//    private LightStreemerService LightStreemerService;
+//    /private LightStreemerService LightStreemerService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void applicationReadyEvent() {
