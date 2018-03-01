@@ -1,0 +1,90 @@
+server:
+    port: 6060
+    tomcat:
+      access_log_enabled: true
+      basedir: target/tomcat
+
+spring:
+    profiles:
+        active: test
+    # MONGODB (MongoProperties)
+    data:
+      mongodb:
+#              authentication-database: # Authentication database name.
+            database: broker-pro # Database name.
+            field-naming-strategy: # Fully qualified name of the FieldNamingStrategy to use.
+#              grid-fs-database: # GridFS database name.
+            host: localhost # Mongo server host.
+#              password: #  password of the mongo server.
+            port: 27017 # Mongo server port.
+            repositories.enabled: true # Enable Mongo repositories.
+#              uri: mongodb://localhost/test # Mongo database URI. When set, host and port are ignored.
+#              username: # user of the mongo server.
+# HTTP encoding (HttpEncodingProperties)
+    http:
+      encoding:
+        charset: UTF-8 # the encoding of HTTP requests/responses
+        enabled: true # enable http encoding support
+        force: true # force the configured encoding
+
+# Pretty-print JSON responses
+    jackson:
+      serialization:
+        indent_output: false
+#    hazelcast:
+#      config: test
+#        groupName: test
+
+service:
+    timeout:
+        connectTimeout: 10000
+        readTimeout: 10000
+
+# Disable the spring security default configuration from spring-boot-actuator
+management.security.enabled: true
+security.basic.enabled: false
+
+# Disable Jolokia - An http/json bridge for remote JMX access
+endpoints.jolokia.enabled: false
+
+async:
+    corePoolSize: 50
+    maxPoolSize: 10000
+    queueCapacity: 20000
+
+authentication:
+    xauth:
+        secret: x-auth-token
+        # Token is valid 60 minutes
+        tokenValidityInSeconds: 3600
+
+swagger:
+    title: Broker Pro
+    description: BrokerPro Application
+    termsOfServiceUrl: http://sefryek.com/
+
+cache:
+    timeToLiveSeconds: 3600
+    hazelcast:
+        backupCount: 0
+    group:
+      name: sefryekGroup
+      password: sefryekBrokerPro
+    servers: 192.168.100.195,192.168.100.196
+quartz:
+    enabled: true
+#http://crontab-generator.org/
+#http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/tutorial-lesson-06.html
+#Seconds Minutes Hours DayOfMonth Month DayOfWeek Year(optional)
+#0 0/5 * * * ?  every 5 Minutes
+#0 0 0/1 * * ?  every 1 hour
+brokerpro:
+    job:
+      sample.cron: 0 5 2 * * ?  #every night about 02:00:00
+      broker.cron: 0 35 2 * * ? #every night about 02:00:00
+      loginGateway.cron: 0 5 3 * * ? #every night about 03:00:00
+      exchangeCompany.cron: 0 35 3 * * ? #every night about 03:00:00
+      exchangeBroker.cron: 0 5 4 * * ? #every night about 04:00:00
+      commissionDetail.cron: 0 35 4 * * ? #every night about 04:00:00
+      financial.cron: 0 5 5 * * ? #every night about 05:00:00
+      onlineUsers.cron: 0 0/2 * * * ? #every 2 Minutes

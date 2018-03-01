@@ -1,0 +1,47 @@
+#server:
+#    port: 9090
+#    tomcat:
+#      access_log_enabled: true
+#      basedir: target/tomcat
+#
+#spring:
+#    profiles:
+#        active: dev
+
+#service:
+#    timeout:
+#        connectTimeout: 30000
+#        readTimeout: 30000
+
+
+# Disable the spring security default configuration from spring-boot-actuator
+management.security.enabled: true
+security.basic.enabled: false
+
+# Disable Jolokia - An http/json bridge for remote JMX access
+endpoints.jolokia.enabled: false
+
+async:
+    corePoolSize: 50
+    maxPoolSize: 10000
+    queueCapacity: 20000
+
+authentication:
+    xauth:
+        secret: x-auth-token
+        # Token is valid 60 minutes
+        tokenValidityInSeconds: 3600
+
+swagger:
+    title: BrokerPro
+    description: BrokerPro Application
+    termsOfServiceUrl: http://sefryek.com/
+
+cache:
+    timeToLiveSeconds: 3600
+    hazelcast:
+        backupCount: 0
+    group:
+      name: sefryekGroup
+      password: sefryekBrokerPro
+    servers: 192.168.100.195,192.168.100.196
